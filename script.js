@@ -14,10 +14,15 @@ var questions = [
     choices: ["blue", "gray", "green", "red"],
     answer: "red",
   },
+  {
+    title: "What color is a pigeon?",
+    choices: ["blue", "gray", "green", "red"],
+    answer: "gray",
+  },
 ];
-
+//number of questions
 var gameIndex = 0;
-
+//timer code
 var element = document.querySelector(".time");
 console.log(element);
 
@@ -25,8 +30,7 @@ var mainEl = document.getElementById("main");
 console.log(mainEl);
 var timerInterval;
 var secondsLeft = 75;
-console.log(secondsLeft);
-
+//timer countdown function
 function countDown() {
   timerInterval = setInterval(function () {
     secondsLeft--;
@@ -38,16 +42,17 @@ function countDown() {
   }, 1000);
 }
 
+//Time's up message
 function sendMessage() {
   element.textContent = " ";
   var textContent = "Time's Up";
   mainEl.appendChild(textContent);
 }
-
+//moves to the next question in the list
 function nextQuestion() {
   document.getElementById("question").textContent = questions[gameIndex].title;
-  //how to delete
-  questions[gameIndex].choices.forEach(function(choice){
+  document.querySelector("#answers").innerHTML = ""
+  questions[gameIndex].choices.forEach(function (choice) {
     console.log(choice);
     var Btn = document.createElement("button");
     Btn.textContent = choice;
@@ -55,17 +60,30 @@ function nextQuestion() {
     document.getElementById("answers").append(Btn);
   })
 }
-
+//checks answer once it's been clicked
 function checkAnswer() {
   console.log(this);
   if (this.textContent === questions[gameIndex].answer) {
     console.log("correct");
-    document.getElementById("question").textContent = "That is CORRECT!";
+    var textCorrect = "That is CORRECT!";
+    document.querySelector("#response").textContent = (textCorrect);
   } else {
     console.log("incorrect!");
-    document.getElementById("question").textContent = "That is INCORRECT!";
+    var textIncorrect = "That is INCORRECT!";
+    document.querySelector("#response").textContent = (textIncorrect);
   } gameIndex++;
-  nextQuestion();
+  if (gameIndex >= questions.length) {
+    endGame();
+  } else {
+    nextQuestion();
+  }
+}
+function endGame() {
+  var gameOverMsg = "Game Over!"
+  document.querySelector("#response").textContent = (gameOverMsg);
+  document.querySelector("#answers").innerHTML = "";
+  document.querySelector("#question").innerHTML = "";
+  clearInterval(timerInterval);
 }
 
 document.getElementById("start").addEventListener("click", function () {

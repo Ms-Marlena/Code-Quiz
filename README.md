@@ -16,7 +16,7 @@ Install the dependencies and open /index.html in the browser.
 ## Usage
 Open the page, click the "Start" button, and click the correct answers.
 
-![alt text](assets/images/screenshot.png)
+![screenshot](./assets/images/screenshot.png)
  
 ## Credits
 style.css file from: http://www.initializr.com/
